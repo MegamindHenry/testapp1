@@ -6,6 +6,6 @@ describe('GET /', () => {
     await request(app)
       .get('/')
       .expect(200)
-      .expect({"hello":"world"});
+      .expect({'hello':'world'});
   });
 });
