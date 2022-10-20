@@ -1,0 +1,19 @@
+variables:
+  path: 'backend'
+trigger:
+- main
+  paths:
+    include:
+      - $(path)/*
+pool:
+  vmImage: windows-latest
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '16.x'
+  displayName: 'Install Node.js'
+- script: |
+    cd $(path)
+    npm install
+    cd ..
+  displayName: 'npm install'
