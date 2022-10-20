@@ -13,39 +13,6 @@ pool:
   vmImage: windows-latest
 
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '16.x'
-  displayName: 'Install Node.js'
-
 - script: |
-    cd $(path)
-    npm install
-    cd ..
-  displayName: 'npm install and build'
-
-- script: |
-    cd $(path)
-    npm run lint
-    cd ..
-  displayName: 'linting'
-
-- script: |
-    cd $(path)
-    npm run test
-    cd ..
-  displayName: 'testing'
-
-- task: ArchiveFiles@2
-  inputs:
-    rootFolderOrFile: '$(path)'
-    includeRootFolder: false
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-    replaceExistingArchive: true
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'backend'
-    publishLocation: 'Container'
+    echo 'abc'
+  displayName: 'echo'
