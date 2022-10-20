@@ -13,7 +13,7 @@ describe('GET', () => {
     await request(app)
       .get('/friend')
       .expect(200)
-      .expect({'hello':'friend'});
+      .expect({'hello':'friend1'});
   });
 
   // it('test /all', async () => {
