@@ -26,6 +26,6 @@ steps:
 
 - script: |
     cd $(path)
-    npm test
+    npm run test
     cd ..
   displayName: 'testing'
