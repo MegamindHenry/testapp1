@@ -15,4 +15,11 @@ describe('GET', () => {
       .expect(200)
       .expect({'hello':'friend'});
   });
+
+  it('test /all', async () => {
+    await request(app)
+      .get('/all')
+      .expect(200)
+      .expect({'hello':'all'});
+  });
 });
