@@ -13,10 +13,10 @@ app.get('/friend', (req, res) => {
   res.status(200).json({'hello':'friend'});
 });
 
-// app.get('/all', (req, res) => {
-//   //   res.send('Hello World!')
-//   res.status(200).json({'hello':'all'});
-// });
+app.get('/all', (req, res) => {
+  //   res.send('Hello World!')
+  res.status(200).json({'hello':'all'});
+});
 
 module.exports = app;
 

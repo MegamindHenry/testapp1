@@ -16,10 +16,10 @@ describe('GET', () => {
       .expect({'hello':'friend'});
   });
 
-  // it('test /all', async () => {
-  //   await request(app)
-  //     .get('/all')
-  //     .expect(200)
-  //     .expect({'hello':'all'});
-  // });
+  it('test /all', async () => {
+    await request(app)
+      .get('/all')
+      .expect(200)
+      .expect({'hello':'all'});
+  });
 });
