@@ -26,6 +26,12 @@ steps:
 
 - script: |
     cd $(path)
+    npm run lint
+    cd ..
+  displayName: 'linting'
+
+- script: |
+    cd $(path)
     npm run test
     cd ..
   displayName: 'testing'
