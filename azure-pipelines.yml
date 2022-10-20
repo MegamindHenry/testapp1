@@ -36,6 +36,14 @@ steps:
     cd ..
   displayName: 'testing'
 
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(path)'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
+
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
