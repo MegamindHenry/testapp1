@@ -23,3 +23,9 @@ steps:
     npm install
     cd ..
   displayName: 'npm install and build'
+
+- script: |
+    cd $(path)
+    npm test
+    cd ..
+  displayName: 'testing'
