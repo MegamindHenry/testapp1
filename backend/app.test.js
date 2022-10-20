@@ -1,12 +1,18 @@
 const request = require('supertest');
 const app = require('./app.js');
 
-describe('GET /', () => {
+describe('GET', () => {
   it('test /', async () => {
     await request(app)
       .get('/')
       .expect(200)
       .expect({'hello':'world'});
-    // expect(3).toBe(3);
+  });
+
+  it('test /friend', async () => {
+    await request(app)
+      .get('/friend')
+      .expect(200)
+      .expect({'hello':'friend'});
   });
 });

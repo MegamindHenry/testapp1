@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
 
 app.get('/friend', (req, res) => {
   //   res.send('Hello World!')
-  res.status(200).json({ 'hello': 'friend' });
+  res.status(200).json({'hello':'friend'});
 });
 
 module.exports = app;
