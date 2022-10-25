@@ -62,7 +62,6 @@ stages:
         ArtifactName: 'backend'
         publishLocation: 'Container'
 
-stages:
 - stage: deploy_to_test
   displayName: 'Deploy to test'
   jobs:
