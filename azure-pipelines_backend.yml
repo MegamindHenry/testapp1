@@ -67,6 +67,6 @@ stages:
   jobs:
   - job: 'deploy_to_test'
     steps:
-    - download: 'CURRENT'
-    displayName: 'Download Artifact: backend'
-    artifact: backend
+    - script: |
+        echo '123'
+      displayName: 'echo'
