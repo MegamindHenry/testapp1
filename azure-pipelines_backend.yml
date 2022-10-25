@@ -13,42 +13,71 @@ variables:
 pool:
   vmImage: windows-latest
 
-steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '16.x'
-  displayName: 'Install Node.js'
+stages:
+- stage: build
+  displayName: 'Build'
+  jobs:
+  - job: test
+    displayName: 'Test the application'
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '16.x'
+      displayName: 'Install Node.js'
 
-- script: |
-    cd $(path)
-    npm install
-    cd ..
-  displayName: 'npm install and build'
+    - script: |
+        cd $(path)
+        npm install
+        cd ..
+      displayName: 'npm install and build'
 
-- script: |
-    cd $(path)
-    npm run lint
-    cd ..
-  displayName: 'linting'
+    - script: |
+        cd $(path)
+        npm run lint
+        cd ..
+      displayName: 'linting'
 
-- script: |
-    cd $(path)
-    npm run test
-    cd ..
-  displayName: 'testing'
+    - script: |
+        cd $(path)
+        npm run test
+        cd ..
+      displayName: 'testing'
 
-- task: ArchiveFiles@2
-  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
-  inputs:
-    rootFolderOrFile: '$(path)'
-    includeRootFolder: false
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-    replaceExistingArchive: true
+  - job: build
+    displayName: 'Build the application'
+    dependsOn: 'test'
+    condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+    steps:
+    - task: ArchiveFiles@2
+      inputs:
+        rootFolderOrFile: '$(path)'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+        replaceExistingArchive: true
 
-- task: PublishBuildArtifacts@1
-  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'backend'
-    publishLocation: 'Container'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'backend'
+        publishLocation: 'Container'
+
+stages:
+- stage: deploy_to_test
+  displayName: 'Deploy to test'
+  jobs:
+  - job: 'deploy_to_test'
+    steps:
+    - download: 'CURRENT'
+    displayName: 'Download Artifact: backend'
+    artifact: backend
+
+    steps:
+    - task: AzureRmWebAppDeployment@4
+      displayName: 'Deploy Azure App Service'
+      inputs:
+        azureSubscription: '$(Parameters.ConnectedServiceName)'
+        appType: '$(Parameters.WebAppKind)'
+        WebAppName: '$(Parameters.WebAppName)'
+        WebConfigParameters: '-Handler iisnode -NodeStartFile index.js -appType node'
+        AppSettings: '-WEBSITE_NODE_DEFAULT_VERSION ~16'
