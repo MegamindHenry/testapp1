@@ -70,12 +70,3 @@ stages:
     - download: 'CURRENT'
     displayName: 'Download Artifact: backend'
     artifact: backend
-
-    - task: AzureRmWebAppDeployment@4
-      displayName: 'Deploy Azure App Service'
-      inputs:
-        azureSubscription: '$(Parameters.ConnectedServiceName)'
-        appType: '$(Parameters.WebAppKind)'
-        WebAppName: '$(Parameters.WebAppName)'
-        WebConfigParameters: '-Handler iisnode -NodeStartFile index.js -appType node'
-        AppSettings: '-WEBSITE_NODE_DEFAULT_VERSION ~16'
