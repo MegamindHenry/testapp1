@@ -71,7 +71,6 @@ stages:
     displayName: 'Download Artifact: backend'
     artifact: backend
 
-    steps:
     - task: AzureRmWebAppDeployment@4
       displayName: 'Deploy Azure App Service'
       inputs:
