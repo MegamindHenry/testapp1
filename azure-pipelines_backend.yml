@@ -80,7 +80,7 @@ stages:
         ConnectionType: 'AzureRM'
         azureSubscription: 'xuefeng-connect'
         appType: 'webApp'
-        WebAppName: 'xuefengtest1'
+        WebAppName: 'appkeo5kdnea5mfg'
         packageForLinux: '$(Pipeline.Workspace)/**/*.zip'
         WebConfigParameters: '-Handler iisnode -NodeStartFile index.js -appType node'
         AppSettings: '-WEBSITE_NODE_DEFAULT_VERSION ~16'
