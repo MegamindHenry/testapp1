@@ -69,3 +69,14 @@ stages:
     steps:
     - download: current
       artifact: 'backend'
+
+    - task: AzureRmWebAppDeployment@4
+      displayName: 'Deploy Azure App Service'
+      inputs:
+        ConnectionType: 'AzureRM'
+        azureSubscription: 'xuefeng-connect'
+        appType: 'webApp'
+        WebAppName: 'appkeo5kdnea5mfg'
+        packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+        WebConfigParameters: '-Handler iisnode -NodeStartFile index.js -appType node'
+        AppSettings: '-WEBSITE_NODE_DEFAULT_VERSION ~16'
