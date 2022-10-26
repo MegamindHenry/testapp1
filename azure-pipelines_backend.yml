@@ -75,6 +75,7 @@ stages:
 
     - task: AzureRmWebAppDeployment@4
       displayName: 'Deploy Azure App Service'
+      retryCountOnTaskFailure: 10
       inputs:
         ConnectionType: 'AzureRM'
         azureSubscription: 'xuefeng-connect'
