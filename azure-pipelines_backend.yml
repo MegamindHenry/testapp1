@@ -82,5 +82,4 @@ stages:
         appType: 'webApp'
         WebAppName: 'xuefengtest1'
         packageForLinux: '$(Pipeline.Workspace)/**/*.zip'
-        WebConfigParameters: '-Handler iisnode -NodeStartFile index.js -appType node'
         AppSettings: '-WEBSITE_NODE_DEFAULT_VERSION ~16'
