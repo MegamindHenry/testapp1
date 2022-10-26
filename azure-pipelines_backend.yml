@@ -67,8 +67,11 @@ stages:
   jobs:
   - job: 'deploy_to_test'
     steps:
-    - download: current
-      artifact: 'backend'
+    - task: DownloadPipelineArtifact@2
+      inputs:
+        buildType: 'current'
+        artifactName: 'backend'
+        targetPath: '$(Pipeline.Workspace)'
 
     - task: AzureRmWebAppDeployment@4
       displayName: 'Deploy Azure App Service'
@@ -77,6 +80,6 @@ stages:
         azureSubscription: 'xuefeng-connect'
         appType: 'webApp'
         WebAppName: 'appkeo5kdnea5mfg'
-        packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+        packageForLinux: '$(Pipeline.Workspace)/**/*.zip'
         WebConfigParameters: '-Handler iisnode -NodeStartFile index.js -appType node'
         AppSettings: '-WEBSITE_NODE_DEFAULT_VERSION ~16'
